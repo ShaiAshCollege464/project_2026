@@ -65,12 +65,7 @@ public class Persist {
     }
 
     public List<UserEntity> getUsersByCity(String city) {
-        return this.sessionFactory.getCurrentSession()
-                .createQuery(
-                        "FROM UserEntity " +
-                                "WHERE city.name = :city", UserEntity.class)
-                .setParameter("city", city)
-                .uniqueResult();
+        return null;
     }
 
 

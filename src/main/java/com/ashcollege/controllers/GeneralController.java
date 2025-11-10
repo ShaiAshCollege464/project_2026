@@ -20,7 +20,6 @@ public class GeneralController {
 
     @PostConstruct
     public void init() {
-        UserEntity userEntity = persist.loadObject(UserEntity.class, 1);
     }
 
 
