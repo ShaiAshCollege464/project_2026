@@ -1,7 +1,8 @@
 package com.ashcollege.utils;
 
 public class Errors {
-    public static final int ERROR_SIGN_UP_NO_USERNAME = 1;
+    public static final int ERROR_MISSING_USERNAME_OR_PASSWORD = 1001;
+    public static final int ERROR_WRONG_CREDENTIALS = 1002;
 
 
 

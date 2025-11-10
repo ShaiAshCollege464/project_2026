@@ -28,15 +28,16 @@ public class Persist {
     public Persist(SessionFactory sf) {
         this.sessionFactory = sf;
     }
+
     public <T> void saveAll(List<T> objects) {
         for (T object : objects) {
             sessionFactory.getCurrentSession().saveOrUpdate(object);
         }
     }
+
     public <T> void remove(Object o){
         sessionFactory.getCurrentSession().remove(o);
     }
-
 
     public Session getQuerySession() {
         return sessionFactory.getCurrentSession();
@@ -62,6 +63,16 @@ public class Persist {
                 .setParameter("email", email)
                 .uniqueResult();
     }
+
+    public List<UserEntity> getUsersByCity(String city) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery(
+                        "FROM UserEntity " +
+                                "WHERE city.name = :city", UserEntity.class)
+                .setParameter("city", city)
+                .uniqueResult();
+    }
+
 
 
 

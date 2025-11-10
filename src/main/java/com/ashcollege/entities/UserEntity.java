@@ -1,18 +1,17 @@
 package com.ashcollege.entities;
 
-
 public class UserEntity extends BaseEntity {
-
+    private UserEntity userEntity;
     private String username;
-    private String phoneNumber;
     private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private CityEntity city;
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
-    public UserEntity () {
-
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public String getUsername() {
@@ -23,14 +22,6 @@ public class UserEntity extends BaseEntity {
         this.username = username;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -39,27 +30,11 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public CityEntity getCity() {
+        return city;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCity(CityEntity city) {
+        this.city = city;
     }
 }

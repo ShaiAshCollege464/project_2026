@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.ashcollege.utils.Constants.SCHEMA;
 
