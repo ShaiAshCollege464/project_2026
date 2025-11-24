@@ -1,18 +1,10 @@
 package com.ashcollege.entities;
 
 public class UserEntity extends BaseEntity {
-    private UserEntity userEntity;
     private String username;
     private String password;
     private CityEntity city;
-
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
+    private String token;
 
     public String getUsername() {
         return username;
@@ -36,5 +28,13 @@ public class UserEntity extends BaseEntity {
 
     public void setCity(CityEntity city) {
         this.city = city;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

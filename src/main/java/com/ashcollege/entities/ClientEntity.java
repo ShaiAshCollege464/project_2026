@@ -6,6 +6,7 @@ public class ClientEntity extends BaseEntity {
     private String contactInfo;
     private String fullName;
     private String address;
+    private String token;
 
     public String getUsername() {
         return username;
@@ -45,5 +46,13 @@ public class ClientEntity extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

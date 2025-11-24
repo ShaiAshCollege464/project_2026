@@ -68,6 +68,32 @@ public class Persist {
         return null;
     }
 
+    public ClientEntity getUserByUsernameAndPassword(String username, String password) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM ClientEntity " +
+                        "WHERE username = :username " +
+                        "AND password = :password", ClientEntity.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .uniqueResult();
+    }
+
+    public List<PostEntity> getPostsByClientId(int clientId) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM PostEntity " +
+                        "WHERE clientEntity.id = :clientId", PostEntity.class)
+                .setParameter("clientId", clientId)
+                .list();
+    }
+
+    public ClientEntity getClientByToken(String token) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM ClientEntity " +
+                        "WHERE token = :token", ClientEntity.class)
+                .setParameter("token", token)
+                .uniqueResult();
+    }
+
 
 
 

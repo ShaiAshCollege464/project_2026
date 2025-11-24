@@ -16,6 +16,7 @@
         <property name="contactInfo" type="string" column="contact_info"/>
         <property name="fullName" type="string" column="full_name"/>
         <property name="address" type="string" column="address"/>
+        <property name="token" type="string" column="token"/>
     </class>
 
     <class name="com.ashcollege.entities.ProffesionalEntity" table="professional" lazy="false">
@@ -62,6 +63,7 @@
         <property name="text" type="string" column="text"/>
         <many-to-one name="categoryEntity" column="category_id"
                      class="com.ashcollege.entities.CategoryEntity"/>
+        <property name="area" type="string" column="area"/>
 
     </class>
 
