@@ -5,6 +5,8 @@ import com.ashcollege.entities.PostEntity;
 public class PostModel {
     private String text;
     private String area;
+    private String fileLink;
+    private String categoryName;
 
     public PostModel () {
     }
@@ -12,6 +14,10 @@ public class PostModel {
     public PostModel (PostEntity postEntity) {
         this.text = postEntity.getText();
         this.area = postEntity.getArea();
+        this.fileLink = postEntity.getFileLink();
+        if (postEntity.getCategoryEntity() != null) {
+            this.categoryName = postEntity.getCategoryEntity().getName();
+        }
     }
 
 
@@ -29,5 +35,21 @@ public class PostModel {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getFileLink() {
+        return fileLink;
+    }
+
+    public void setFileLink(String fileLink) {
+        this.fileLink = fileLink;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

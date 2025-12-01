@@ -94,6 +94,34 @@ public class Persist {
                 .uniqueResult();
     }
 
+    public ProffesionalEntity getProfessionalByToken(String token) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM ProffesionalEntity " +
+                        "WHERE token = :token", ProffesionalEntity.class)
+                .setParameter("token", token)
+                .uniqueResult();
+    }
+
+
+    public ProffesionalEntity getProffesionalByUsernameAndPassword(String username, String password) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM ProffesionalEntity " +
+                        "WHERE username = :username " +
+                        "AND password = :password", ProffesionalEntity.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .uniqueResult();
+    }
+
+    public BasicUser getUserByToken(String token) {
+        BasicUser user = getClientByToken(token);
+        if (user == null) {
+            user = getProfessionalByToken(token);
+        }
+        return user;
+    }
+
+
 
 
 

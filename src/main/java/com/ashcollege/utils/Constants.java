@@ -16,4 +16,6 @@ public class Constants {
     public static final int PHONE_TAKEN = 1002;
     public static final int EMAIL_TAKEN = 1003;
 
+    public static final int USER_TYPE_CLIENT = 1;
+    public static final int USER_TYPE_PROFESSIONAL = 2;
 }

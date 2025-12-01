@@ -32,6 +32,7 @@
         <property name="fullName" type="string" column="full_name"/>
         <property name="areas" type="string" column="areas"/>
         <property name="plan" type="int" column="plan"/>
+        <property name="token" type="string" column="token"/>
     </class>
 
     <class name="com.ashcollege.entities.CategoryEntity" table="categories" lazy="false">
@@ -64,6 +65,7 @@
         <many-to-one name="categoryEntity" column="category_id"
                      class="com.ashcollege.entities.CategoryEntity"/>
         <property name="area" type="string" column="area"/>
+        <property name="fileLink" type="string" column="file_link"/>
 
     </class>
 
