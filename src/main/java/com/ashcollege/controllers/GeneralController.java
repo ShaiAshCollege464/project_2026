@@ -15,8 +15,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static com.ashcollege.utils.Constants.USER_TYPE_CLIENT;
-import static com.ashcollege.utils.Errors.ERROR_MISSING_USERNAME_OR_PASSWORD;
-import static com.ashcollege.utils.Errors.ERROR_WRONG_CREDENTIALS;
+import static com.ashcollege.utils.Errors.*;
 
 @RestController
 public class GeneralController {
@@ -67,7 +66,7 @@ public class GeneralController {
     public BasicResponse getPosts (String token) {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
-            List<PostEntity> posts = persist.getPostsByClientId(clientEntity.getId());
+            List<PostEntity> posts = persist.getPostsByClientId(clientEntity.getId()).stream().filter(post -> !post.isDeleted()).toList();
             return new ClientPostsResponse(true, null, posts);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
@@ -95,6 +94,23 @@ public class GeneralController {
             return new BasicResponse(true, null);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+    @RequestMapping("/delete-post")
+    public BasicResponse deletePost (String token, int postId) {
+        ClientEntity clientEntity = persist.getClientByToken(token);
+        if (clientEntity != null) {
+            PostEntity postEntity = persist.getPostByPostId(postId);
+            if (clientEntity.getId()==postEntity.getClientEntity().getId()) {
+                postEntity.setDeleted(true);
+                persist.save(postEntity);
+                return new BasicResponse(true, null);
+            }else {
+                return new BasicResponse(false, ERROR_NOT_AUTHORIZED);
+            }
+        } else {
+            return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
         }
     }
 

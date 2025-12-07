@@ -59,6 +59,9 @@
         <id name="id" type="int" column="id">
             <generator class="native"/>
         </id>
+        <property name="deleted" type="boolean">
+            <column name="deleted" default="false"/>
+        </property>
         <many-to-one name="clientEntity" column="client_id"
                      class="com.ashcollege.entities.ClientEntity"/>
         <property name="text" type="string" column="text"/>

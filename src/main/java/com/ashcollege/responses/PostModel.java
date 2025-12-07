@@ -3,6 +3,7 @@ package com.ashcollege.responses;
 import com.ashcollege.entities.PostEntity;
 
 public class PostModel {
+    private int id;
     private String text;
     private String area;
     private String fileLink;
@@ -15,6 +16,7 @@ public class PostModel {
         this.text = postEntity.getText();
         this.area = postEntity.getArea();
         this.fileLink = postEntity.getFileLink();
+        this.id = postEntity.getId();
         if (postEntity.getCategoryEntity() != null) {
             this.categoryName = postEntity.getCategoryEntity().getName();
         }
@@ -52,4 +54,11 @@ public class PostModel {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {return id;}
+
 }
