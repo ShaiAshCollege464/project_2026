@@ -120,9 +120,4 @@ public class GeneralController {
             return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
         }
     }
-
-
-
-
-
 }
