@@ -85,6 +85,13 @@ public class Persist {
                 .setParameter("clientId", clientId)
                 .list();
     }
+
+    public List<PostEntity> getAllPost() {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM PostEntity", PostEntity.class)
+                .list();
+    }
+
     public PostEntity getPostByPostId(int id) {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PostEntity " +

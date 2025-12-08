@@ -1,13 +1,9 @@
 package com.ashcollege.controllers;
 
 import com.ashcollege.entities.*;
-import com.ashcollege.responses.BasicResponse;
-import com.ashcollege.responses.ClientPostsResponse;
-import com.ashcollege.responses.DefaultParamResponse;
-import com.ashcollege.responses.LoginResponse;
+import com.ashcollege.responses.*;
 import com.ashcollege.service.Persist;
 import com.ashcollege.utils.GeneralUtils;
-import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
@@ -62,12 +58,23 @@ public class GeneralController {
         return null;
     }
     
-    @RequestMapping("/get-posts")
-    public BasicResponse getPosts (String token) {
+    @RequestMapping("/get-user-posts")
+    public BasicResponse getUserPosts(String token) {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
             List<PostEntity> posts = persist.getPostsByClientId(clientEntity.getId()).stream().filter(post -> !post.isDeleted()).toList();
             return new ClientPostsResponse(true, null, posts);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+    @RequestMapping("/get-all-posts")
+    public BasicResponse getAllPosts(String token) {
+        ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+        if (proffesionalEntity != null) {
+            List<PostEntity> posts = persist.getAllPost().stream().filter(post -> !post.isDeleted()).toList();
+            return new ProffesionalPostsResponse(true, null, posts);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
         }
