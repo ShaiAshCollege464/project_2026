@@ -120,4 +120,10 @@ public class GeneralController {
             return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
         }
     }
+
+
+    @RequestMapping ("/get-all-users")
+    public List<ClientEntity> getAllUsers () {
+        return persist.loadList(ClientEntity.class);
+    }
 }

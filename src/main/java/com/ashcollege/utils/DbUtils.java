@@ -19,13 +19,13 @@ public class DbUtils {
     }
 
     private void createDbConnection(String username, String password) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + SCHEMA, username, password);
-            System.out.println("Connection successful!");
-            System.out.println();
-        } catch (Exception e) {
-            System.out.println("Cannot create DB connection!");
-        }
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + SCHEMA, username, password);
+//            System.out.println("Connection successful!");
+//            System.out.println();
+//        } catch (Exception e) {
+//            System.out.println("Cannot create DB connection!");
+//        }
     }
 }
