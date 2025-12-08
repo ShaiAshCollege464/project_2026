@@ -33,7 +33,7 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() throws Exception {
-        String dbUser = env.getProperty("DB_ROOT");
+        String dbUser = env.getProperty("DB_ROOT1");
         if (dbUser == null) {
             dbUser = DB_USERNAME;
         }
