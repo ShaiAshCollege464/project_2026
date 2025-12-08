@@ -37,6 +37,11 @@ public class AppConfig {
         if (dbUser == null) {
             dbUser = DB_USERNAME;
         }
+        String dbSchema = env.getProperty("DB_SCHEMA");
+        if (dbSchema == null) {
+            dbSchema = SCHEMA;
+        }
+
         String dbPass = env.getProperty("DB_PASSWORD");
         if (dbPass == null) {
             dbPass = DB_PASSWORD;
@@ -53,12 +58,12 @@ public class AppConfig {
         String createSchemaUrl = "jdbc:mysql://" + host + ":" + port + "/?useSSL=false&allowPublicKeyRetrieval=true";
         try (Connection connection = DriverManager.getConnection(createSchemaUrl, dbUser, dbPass);
              Statement statement = connection.createStatement()) {
-            String createSchemaSQL = "CREATE SCHEMA IF NOT EXISTS " + SCHEMA;
+            String createSchemaSQL = "CREATE SCHEMA IF NOT EXISTS " + dbSchema;
             statement.executeUpdate(createSchemaSQL);
         }
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + SCHEMA  + "?useSSL=false&allowPublicKeyRetrieval=true");
+        dataSource.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + dbSchema  + "?useSSL=false&allowPublicKeyRetrieval=true");
         dataSource.setUser(dbUser);
         dataSource.setPassword(dbPass);
         dataSource.setMaxPoolSize(20);
