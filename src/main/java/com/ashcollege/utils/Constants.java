@@ -2,7 +2,7 @@ package com.ashcollege.utils;
 
 
 public class Constants {
-    public static final String SCHEMA = "ash_cal";
+    public static final String SCHEMA = "railway";
     public static final String DB_HOST = "localhost";
     public static final int DB_PORT = 3306;
     public static final String DB_USERNAME = "root";
