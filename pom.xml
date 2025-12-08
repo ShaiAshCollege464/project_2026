@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ashcollege</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>ProjectAsh2025</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -154,11 +154,23 @@
     </dependencies>
 
     <build>
-        <finalName>ashcollege</finalName>
+        <finalName>ProjectAsh2025</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
