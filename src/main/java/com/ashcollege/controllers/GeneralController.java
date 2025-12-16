@@ -91,12 +91,14 @@ public class GeneralController {
     }
 
     @RequestMapping("/add-post")
-    public BasicResponse addPost (String token, String text) {
+    public BasicResponse addPost (String token, String text, String fileLink, String area) {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
             PostEntity postEntity = new PostEntity();
             postEntity.setClientEntity(clientEntity);
             postEntity.setText(text);
+            postEntity.setArea(area);
+            postEntity.setFileLink(fileLink);
             persist.save(postEntity);
             return new BasicResponse(true, null);
         } else {
