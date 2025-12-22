@@ -103,6 +103,13 @@ public class Persist {
                 .setParameter("id", id)
                 .uniqueResult();
     }
+    public CategoryEntity getCategoryByCategoryId(int id) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM CategoryEntity " +
+                        "WHERE id = :id", CategoryEntity.class)
+                .setParameter("id", id)
+                .uniqueResult();
+    }
 
     public ClientEntity getClientByToken(String token) {
         return this.sessionFactory.getCurrentSession()

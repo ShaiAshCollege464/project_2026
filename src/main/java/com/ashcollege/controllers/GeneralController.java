@@ -101,14 +101,18 @@ public class GeneralController {
     }
 
     @RequestMapping("/add-post")
-    public BasicResponse addPost (String token, String text, String fileLink, String area) {
+    public BasicResponse addPost (String token, String text, String fileLink, String area,int categoryId) {
         ClientEntity clientEntity = persist.getClientByToken(token);
+        CategoryEntity categoryEntity = persist.getCategoryByCategoryId(categoryId);
         if (clientEntity != null) {
             PostEntity postEntity = new PostEntity();
             postEntity.setClientEntity(clientEntity);
             postEntity.setText(text);
             postEntity.setArea(area);
             postEntity.setFileLink(fileLink);
+            if (categoryEntity != null) {
+                postEntity.setCategoryEntity(categoryEntity);
+            }
             persist.save(postEntity);
             return new BasicResponse(true, null);
         } else {
