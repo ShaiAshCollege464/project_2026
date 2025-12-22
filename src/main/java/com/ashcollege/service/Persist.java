@@ -2,7 +2,6 @@ package com.ashcollege.service;
 
 
 import com.ashcollege.entities.*;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +88,11 @@ public class Persist {
     public List<PostEntity> getAllPost() {
         return this.sessionFactory.getCurrentSession()
                 .createQuery("FROM PostEntity", PostEntity.class)
+                .list();
+    }
+    public List<CategoryEntity> getAllCategories() {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM CategoryEntity", CategoryEntity.class)
                 .list();
     }
 

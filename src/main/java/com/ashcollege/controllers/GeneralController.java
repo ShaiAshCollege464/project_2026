@@ -79,6 +79,16 @@ public class GeneralController {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
         }
     }
+    @RequestMapping("/get-all-categories")
+    public BasicResponse getAllCategories(String token) {
+        BasicUser basicUser = persist.getUserByToken(token);
+        if (basicUser != null) {
+            List<CategoryEntity> categories = persist.getAllCategories().stream().filter(category -> !category.isDeleted()).toList();
+            return new CategoriesResponse(true, null, categories);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
 
     @RequestMapping("/get-default-params")
     public BasicResponse getDefaultParams (String token) {
