@@ -84,6 +84,7 @@ public class GeneralController {
                     }else {
                         if (areas != null && plan > 0) {
                             ProffesionalEntity proffesionalEntity = new ProffesionalEntity();
+                            proffesionalEntity.setFullName(fullName);
                             proffesionalEntity.setUsername(username);
                             proffesionalEntity.setPassword(password);
                             proffesionalEntity.setAreas(areas);
