@@ -5,6 +5,7 @@ public class BasicUser extends BaseEntity{
     private String password;
     private String token;
     private String fullName;
+    private String contactInfo;
 
     public String getUsername() {
         return username;
@@ -28,6 +29,14 @@ public class BasicUser extends BaseEntity{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
     }
 
     public String getFullName() {
