@@ -165,6 +165,23 @@ public class Persist {
         return user;
     }
 
+    public List<BidEntity> getBidsByProfessionalId(int professionalId) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM BidEntity " +
+                        "WHERE proffesionalEntity.id = :professionalId", BidEntity.class)
+                .setParameter("professionalId", professionalId)
+                .list();
+    }
+
+    public List<BidEntity> getProposalsByClientId(int clientId) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery(
+                        "FROM BidEntity bid " +
+                                "WHERE bid.postEntity.clientEntity.id = :clientId", BidEntity.class)
+                .setParameter("clientId", clientId)
+                .list();
+    }
+
 
 
 

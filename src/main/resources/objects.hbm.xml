@@ -82,6 +82,8 @@
                      class="com.ashcollege.entities.PostEntity"/>
         <property name="status" type="int" column="status"/>
         <property name="proposedPrice" type="float" column="proposed_price"/>
+        <property name="description" type="text" column="description"/>
+
     </class>
 
 

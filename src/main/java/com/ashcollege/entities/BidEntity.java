@@ -6,6 +6,7 @@ public class BidEntity extends BaseEntity {
     // 0 - pending, 1 - accepted, 2 - rejected, 3 - in progress
     private int status;
     private float proposedPrice;
+    private String description;
 
     public ProffesionalEntity getProffesionalEntity() {
         return proffesionalEntity;
@@ -37,5 +38,13 @@ public class BidEntity extends BaseEntity {
 
     public void setProposedPrice(float proposedPrice) {
         this.proposedPrice = proposedPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

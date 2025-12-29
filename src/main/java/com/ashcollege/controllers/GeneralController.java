@@ -185,4 +185,51 @@ public class GeneralController {
     public List<ClientEntity> getAllUsers () {
         return persist.loadList(ClientEntity.class);
     }
+
+
+
+    @RequestMapping("/make-bid")
+    public BasicResponse makeBid (String token, int postId, float proposedPrice, String description) {
+        ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+        if (proffesionalEntity != null) {
+            PostEntity postEntity = persist.getPostByPostId(postId);
+            if (postEntity != null) {
+                BidEntity bidEntity = new BidEntity();
+                bidEntity.setProffesionalEntity(proffesionalEntity);
+                bidEntity.setPostEntity(postEntity);
+                bidEntity.setProposedPrice(proposedPrice);
+                bidEntity.setStatus(0);
+                bidEntity.setDescription(description);
+                persist.save(bidEntity);
+                return new BasicResponse(true, null);
+            } else {
+                return new BasicResponse(false, ERROR_POST_NOT_FOUND);
+            }
+        } else {
+            return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+
+    @RequestMapping("/my-bids")
+    public BasicResponse myBids (String token) {
+        ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+        if (proffesionalEntity != null) {
+            List<BidEntity> myBids = persist.getBidsByProfessionalId(proffesionalEntity.getId());
+            return new BidsResponseModel(true, null, myBids);
+        } else {
+            return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+    @RequestMapping("/my-proposals")
+    public BasicResponse myProposals (String token) {
+        ClientEntity clientEntity = persist.getClientByToken(token);
+        if (clientEntity != null) {
+            List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId());
+            return new BidsResponseModel(true, null, myProposals);
+        } else {
+            return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
+        }
+    }
 }
