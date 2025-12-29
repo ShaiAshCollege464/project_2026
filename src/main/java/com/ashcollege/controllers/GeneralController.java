@@ -62,7 +62,7 @@ public class GeneralController {
     public BasicResponse addUser(int selectedType,String username,String password,String fullName,String address,String areas,int plan,String contactInfo) {
         try {
             if (username != null  && password != null) {
-                UserEntity userEntity = persist.getUserByUsername(username);
+                BasicUser userEntity = persist.getUserByUsername(username);
                 if (userEntity != null) {
                     return new BasicResponse(false,ERROR_USERNAME_ALREADY_EXISTS);
                 }else {

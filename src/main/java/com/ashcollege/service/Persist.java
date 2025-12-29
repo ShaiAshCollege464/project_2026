@@ -62,9 +62,22 @@ public class Persist {
                 .setParameter("email", email)
                 .uniqueResult();
     }
-    public UserEntity getUserByUsername(String username) {
+    public BasicUser getUserByUsername(String username) {
+        BasicUser user = getClientByUsername(username);
+        if (user == null) {
+            user = getProffesionalByUsername(username);
+        }
+        return user;
+    }
+    public ClientEntity getClientByUsername(String username) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM UserEntity WHERE username = :username ", UserEntity.class)
+                .createQuery("FROM ClientEntity " + " WHERE username = :username ", ClientEntity.class)
+                .setParameter("username", username)
+                .uniqueResult();
+    }
+    public ProffesionalEntity getProffesionalByUsername(String username) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery("FROM ProffesionalEntity " + " WHERE username = :username ", ProffesionalEntity.class)
                 .setParameter("username", username)
                 .uniqueResult();
     }
@@ -75,7 +88,7 @@ public class Persist {
 
     public ClientEntity getUserByUsernameAndPassword(String username, String password) {
         return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM ClientEntity " +
+                .createQuery("FROM ClientEntity  " +
                         "WHERE username = :username " +
                         "AND password = :password", ClientEntity.class)
                 .setParameter("username", username)
