@@ -95,6 +95,7 @@
                      class="com.ashcollege.entities.BidEntity"/>
         <property name="content" type="string" column="content"/>
         <property name="client" type="boolean" column="client"/>
+        <property name="creationDate" type="java.util.Date" column="creation_date"/>
     </class>
 
 

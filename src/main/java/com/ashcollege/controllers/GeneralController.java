@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.ashcollege.utils.Constants.USER_TYPE_CLIENT;
@@ -115,7 +118,8 @@ public class GeneralController {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
             List<PostEntity> posts = persist.getPostsByClientId(clientEntity.getId()).stream().filter(post -> !post.isDeleted()).toList();
-            return new ClientPostsResponse(true, null, posts);
+            List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId());
+            return new ClientPostsResponse(true, null, posts, myProposals);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
         }
@@ -241,4 +245,49 @@ public class GeneralController {
             return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);
         }
     }
+
+    @RequestMapping("/get-post")
+    public BasicResponse getUserPosts(String token, int id) {
+        ClientEntity clientEntity = persist.getClientByToken(token);
+        if (clientEntity != null) {
+            PostEntity postEntity = persist.loadObject(PostEntity.class, id);
+            List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId());
+            return new ClientPostResponse(true, null, postEntity, myProposals);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+    @RequestMapping("/get-bid")
+    public BasicResponse getBid(String token, int id) {
+        ClientEntity clientEntity = persist.getClientByToken(token);
+        if (clientEntity != null) {
+            BidEntity bidEntity = persist.loadObject(BidEntity.class, id);
+            List<MessageEntity> conversation = persist.getConversation(bidEntity.getId());
+            Collections.reverse(conversation);
+            return new BidResponse(true, null, bidEntity, conversation);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+    @RequestMapping("/send-message")
+    public BasicResponse sendMessage(String token, String newMessage, int bidId) {
+        ClientEntity clientEntity = persist.getClientByToken(token);
+        if (clientEntity != null) {
+            BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setBidEntity(bidEntity);
+            messageEntity.setContent(newMessage);
+            messageEntity.setClient(true);
+            messageEntity.setCreationDate(new Date());
+            persist.save(messageEntity);
+            return new BasicResponse(true, null);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+
+
+
 }

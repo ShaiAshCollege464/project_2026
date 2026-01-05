@@ -182,6 +182,18 @@ public class Persist {
                 .list();
     }
 
+    public List<MessageEntity> getConversation (int bidId) {
+        return this.sessionFactory.getCurrentSession()
+                .createQuery(
+                        "FROM MessageEntity msg " +
+                                "WHERE msg.bidEntity.id = :bidId " +
+                                "ORDER BY msg.id DESC ",
+                        MessageEntity.class)
+                .setParameter("bidId", bidId)
+                .setMaxResults(10)
+                .list();
+    }
+
 
 
 

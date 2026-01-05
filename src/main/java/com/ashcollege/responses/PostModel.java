@@ -1,6 +1,9 @@
 package com.ashcollege.responses;
 
+import com.ashcollege.entities.BidEntity;
 import com.ashcollege.entities.PostEntity;
+
+import java.util.List;
 
 public class PostModel {
     private int id;
@@ -8,11 +11,12 @@ public class PostModel {
     private String area;
     private String fileLink;
     private String categoryName;
+    private List<BidModel> bids;
 
     public PostModel () {
     }
 
-    public PostModel (PostEntity postEntity) {
+    public PostModel (PostEntity postEntity, List<BidEntity> bidEntities) {
         this.text = postEntity.getText();
         this.area = postEntity.getArea();
         this.fileLink = postEntity.getFileLink();
@@ -20,6 +24,7 @@ public class PostModel {
         if (postEntity.getCategoryEntity() != null) {
             this.categoryName = postEntity.getCategoryEntity().getName();
         }
+        this.bids = bidEntities.stream().map(BidModel::new).toList();
     }
 
 
@@ -61,4 +66,11 @@ public class PostModel {
 
     public int getId() {return id;}
 
+    public List<BidModel> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<BidModel> bids) {
+        this.bids = bids;
+    }
 }
