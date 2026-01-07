@@ -56,12 +56,7 @@ public class Persist {
                 .createQuery("FROM " + clazz.getSimpleName()).list();
     }
 
-    public UserEntity getUserByEmail(String email) {
-        return this.sessionFactory.getCurrentSession()
-                .createQuery("FROM UserEntity WHERE email = :email ", UserEntity.class)
-                .setParameter("email", email)
-                .uniqueResult();
-    }
+
     public BasicUser getUserByUsername(String username) {
         BasicUser user = getClientByUsername(username);
         if (user == null) {
@@ -82,9 +77,7 @@ public class Persist {
                 .uniqueResult();
     }
 
-    public List<UserEntity> getUsersByCity(String city) {
-        return null;
-    }
+
 
     public ClientEntity getUserByUsernameAndPassword(String username, String password) {
         return this.sessionFactory.getCurrentSession()

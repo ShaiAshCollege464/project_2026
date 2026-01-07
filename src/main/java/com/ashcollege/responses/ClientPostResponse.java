@@ -13,7 +13,7 @@ public class ClientPostResponse extends BasicResponse {
 
     public ClientPostResponse(boolean success, Integer errorCode, PostEntity postEntity, List<BidEntity> bidEntities) {
         super(success, errorCode);
-        this.post = new PostModel(postEntity, bidEntities);
+        this.post = new PostModel(postEntity, bidEntities.stream().filter(bid -> bid.getPostEntity().getId() == postEntity.getId()).toList());
     }
 
     public PostModel getPost() {

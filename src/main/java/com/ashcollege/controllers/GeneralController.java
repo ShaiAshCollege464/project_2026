@@ -130,7 +130,8 @@ public class GeneralController {
         ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
         if (proffesionalEntity != null) {
             List<PostEntity> posts = persist.getAllPost().stream().filter(post -> !post.isDeleted()).toList();
-            return new ProffesionalPostsResponse(true, null, posts);
+            List<BidEntity> bids = persist.getBidsByProfessionalId(proffesionalEntity.getId());
+            return new ProffesionalPostsResponse(true, null, posts,bids);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
         }
@@ -239,7 +240,7 @@ public class GeneralController {
     public BasicResponse myProposals (String token) {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
-            List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId());
+            List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId()).stream().filter(proposal -> !proposal.getPostEntity().isDeleted()).toList();
             return new BidsResponseModel(true, null, myProposals);
         } else {
             return new BasicResponse(false,ERROR_WRONG_CREDENTIALS);

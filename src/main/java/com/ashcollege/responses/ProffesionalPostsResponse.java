@@ -11,10 +11,10 @@ public class ProffesionalPostsResponse extends BasicResponse {
     public ProffesionalPostsResponse() {
     }
 
-    public ProffesionalPostsResponse(boolean success, Integer errorCode, List<PostEntity> posts) {
+    public ProffesionalPostsResponse(boolean success, Integer errorCode, List<PostEntity> posts, List<BidEntity> bidEntities) {
         super(success, errorCode);
         this.posts = posts.stream().map(item -> {
-            return new PostModel(item, null);
+            return new PostModel(item, bidEntities.stream().filter(bid -> bid.getPostEntity().getId() == item.getId()).toList());
         }).toList();
     }
 
