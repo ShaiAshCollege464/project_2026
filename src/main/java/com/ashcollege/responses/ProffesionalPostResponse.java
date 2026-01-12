@@ -11,9 +11,9 @@ public class ProffesionalPostResponse extends BasicResponse {
     public ProffesionalPostResponse() {
     }
 
-    public ProffesionalPostResponse(boolean success, Integer errorCode, PostEntity postEntity) {
+    public ProffesionalPostResponse(boolean success, Integer errorCode, PostEntity postEntity,List<BidEntity> bidEntities) {
         super(success, errorCode);
-        this.post = new PostModel(postEntity,null);
+        this.post = new PostModel(postEntity,bidEntities.stream().filter(bid -> bid.getPostEntity().getId() == postEntity.getId()).toList());
     }
 
     public PostModel getPost() {
