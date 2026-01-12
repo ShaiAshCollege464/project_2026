@@ -272,7 +272,7 @@ public class GeneralController {
 
     @RequestMapping("/get-bid")
     public BasicResponse getBid(String token, int id) {
-        BaseEntity baseEntity = persist.getClientByToken(token);
+        BaseEntity baseEntity = persist.getUserByToken(token);
         if (baseEntity != null) {
             BidEntity bidEntity = persist.loadObject(BidEntity.class, id);
             List<MessageEntity> conversation = persist.getConversation(bidEntity.getId());
@@ -296,7 +296,19 @@ public class GeneralController {
             persist.save(messageEntity);
             return new BasicResponse(true, null);
         } else {
-            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+            ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+            if (proffesionalEntity != null) {
+                BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
+                MessageEntity messageEntity = new MessageEntity();
+                messageEntity.setBidEntity(bidEntity);
+                messageEntity.setContent(newMessage);
+                messageEntity.setClient(false);
+                messageEntity.setCreationDate(new Date());
+                persist.save(messageEntity);
+                return new BasicResponse(true, null);
+            } else {
+                return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+            }
         }
     }
 
