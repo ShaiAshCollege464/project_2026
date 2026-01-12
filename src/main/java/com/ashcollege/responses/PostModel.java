@@ -24,7 +24,9 @@ public class PostModel {
         if (postEntity.getCategoryEntity() != null) {
             this.categoryName = postEntity.getCategoryEntity().getName();
         }
-        this.bids = bidEntities.stream().map(BidModel::new).toList();
+        if (bidEntities != null) {
+            this.bids = bidEntities.stream().map(BidModel::new).toList();
+        }
     }
 
 

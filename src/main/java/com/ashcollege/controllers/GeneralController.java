@@ -247,13 +247,23 @@ public class GeneralController {
         }
     }
 
-    @RequestMapping("/get-post")
-    public BasicResponse getUserPosts(String token, int id) {
+    @RequestMapping("/get-post-user")
+    public BasicResponse getUserPost(String token, int id) {
         ClientEntity clientEntity = persist.getClientByToken(token);
         if (clientEntity != null) {
             PostEntity postEntity = persist.loadObject(PostEntity.class, id);
             List<BidEntity> myProposals = persist.getProposalsByClientId(clientEntity.getId());
             return new ClientPostResponse(true, null, postEntity, myProposals);
+        } else {
+            return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+        }
+    }
+    @RequestMapping("/get-post-professional")
+    public BasicResponse getProfessionalPost(String token, int id) {
+        ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+        if (proffesionalEntity != null) {
+            PostEntity postEntity = persist.loadObject(PostEntity.class, id);
+            return new ProffesionalPostResponse(true, null, postEntity);
         } else {
             return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
         }
