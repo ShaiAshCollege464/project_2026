@@ -101,6 +101,8 @@ public class LiveChatController {
                 messageEntity.setClient(false);
                 messageEntity.setCreationDate(new Date());
                 persist.save(messageEntity);
+                ClientEntity receiver = bidEntity.getPostEntity().getClientEntity();
+                sendMessage(false, proffesionalEntity, receiver, newMessage);
                 return new BasicResponse(true, null);
             } else {
                 return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
@@ -118,7 +120,16 @@ public class LiveChatController {
             sendMessage(true, clientEntity, receiver, "");
             return new BasicResponse(true, null);
         } else {
-            return new BasicResponse(true, null);
+            ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
+            if (proffesionalEntity != null) {
+                BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
+                ProffesionalEntity receiver = bidEntity.getProffesionalEntity();
+                sendMessage(true, clientEntity, receiver, "");
+                return new BasicResponse(true, null);
+            }else {
+                return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
+            }
+
         }
     }
 
