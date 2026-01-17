@@ -283,34 +283,6 @@ public class GeneralController {
         }
     }
 
-    @RequestMapping("/send-message")
-    public BasicResponse sendMessage(String token, String newMessage, int bidId) {
-        ClientEntity clientEntity = persist.getClientByToken(token);
-        if (clientEntity != null) {
-            BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
-            MessageEntity messageEntity = new MessageEntity();
-            messageEntity.setBidEntity(bidEntity);
-            messageEntity.setContent(newMessage);
-            messageEntity.setClient(true);
-            messageEntity.setCreationDate(new Date());
-            persist.save(messageEntity);
-            return new BasicResponse(true, null);
-        } else {
-            ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
-            if (proffesionalEntity != null) {
-                BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
-                MessageEntity messageEntity = new MessageEntity();
-                messageEntity.setBidEntity(bidEntity);
-                messageEntity.setContent(newMessage);
-                messageEntity.setClient(false);
-                messageEntity.setCreationDate(new Date());
-                persist.save(messageEntity);
-                return new BasicResponse(true, null);
-            } else {
-                return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
-            }
-        }
-    }
 
 
 
