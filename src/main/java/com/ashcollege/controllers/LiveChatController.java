@@ -123,8 +123,8 @@ public class LiveChatController {
             ProffesionalEntity proffesionalEntity = persist.getProfessionalByToken(token);
             if (proffesionalEntity != null) {
                 BidEntity bidEntity = persist.loadObject(BidEntity.class, bidId);
-                ProffesionalEntity receiver = bidEntity.getProffesionalEntity();
-                sendMessage(true, clientEntity, receiver, "");
+                ClientEntity receiver = bidEntity.getPostEntity().getClientEntity();
+                sendMessage(true, proffesionalEntity, receiver, "");
                 return new BasicResponse(true, null);
             }else {
                 return new BasicResponse(false, ERROR_WRONG_CREDENTIALS);
